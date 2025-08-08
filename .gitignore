@@ -1,0 +1,33 @@
+# Environments
+.env
+.venv
+venv/
+__pypackages__/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# IDEs and editors
+.idea/
+.vscode/
+.idx/
+
+# Build and distribution
+build/
+dist/
+*.egg-info/
+
+# Test and coverage reports
+htmlcov/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+
+# OS-specific
+.DS_Store
+Thumbs.db
