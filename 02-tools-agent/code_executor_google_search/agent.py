@@ -12,9 +12,9 @@ root_agent = Agent(
     Return only the final numerical result as plain text, without markdown or code blocks.
     I can also answer your questions by searching the internet. Just ask me anything!
     """,
-    description="""Agent to answer questions using Google Search and 
-    Executes Python code to perform calculations.
-    """,
+    description=(
+        "Agent to answer questions using Google Search and execute Python code to perform calculations."
+    ),
     tools=[google_search],
     code_executor=BuiltInCodeExecutor(),
 )
