@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Weather API (Open-Meteo + Met.no hybrid)",
+    "description": "Unified OpenAPI spec combining Open-Meteo endpoints and Met.no locationforecast types (compact, complete, classic).",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.open-meteo.com"
+    },
+    {
+      "url": "https://api.met.no/weatherapi/locationforecast/2.0",
+      "description": "Met.no Locationforecast endpoints"
+    }
+  ],
+  "paths": {
+    "/v1/forecast": {
+      "get": {
+        "summary": "Open-Meteo weather forecast",
+        "parameters": [
+          { "name": "latitude", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "longitude", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "hourly", "in": "query", "schema": { "type": "string" }, "description": "Comma-separated hourly variables" },
+          { "name": "daily", "in": "query", "schema": { "type": "string" }, "description": "Comma-separated daily variables" },
+          { "name": "timezone", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Forecast response", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+    "/v1/archive": {
+      "get": {
+        "summary": "Open-Meteo historical weather",
+        "parameters": [
+          { "name": "latitude", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "longitude", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "start_date", "in": "query", "required": true, "schema": { "type": "string", "format": "date" } },
+          { "name": "end_date", "in": "query", "required": true, "schema": { "type": "string", "format": "date" } },
+          { "name": "daily", "in": "query", "schema": { "type": "string" }, "description": "Daily variables list" },
+          { "name": "timezone", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Historical data", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+    "/compact": {
+      "get": {
+        "summary": "Met.no locationforecast compact (GeoJSON)",
+        "parameters": [
+          { "name": "lat", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "lon", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } }
+        ],
+        "responses": {
+          "200": { "description": "Compact forecast GeoJSON", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+    "/complete": {
+      "get": {
+        "summary": "Met.no locationforecast complete (detailed forecast)",
+        "parameters": [
+          { "name": "lat", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "lon", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } }
+        ],
+        "responses": {
+          "200": { "description": "Complete detailed forecast", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+    "/classic": {
+      "get": {
+        "summary": "Met.no classic (legacy XML)",
+        "parameters": [
+          { "name": "lat", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "lon", "in": "query", "required": true, "schema": { "type": "number", "format": "float" } },
+          { "name": "altitude", "in": "query", "schema": { "type": "number", "format": "float" }, "description": "Previously msi parameter" }
+        ],
+        "responses": {
+          "200": { "description": "Legacy XML forecast", "content": { "application/xml": { "schema": { "type": "string" } } } }
+        }
+      }
+    }
+  }
+}
